@@ -13,8 +13,8 @@ jobs:
       matrix:
         config:
         - { os: windows-latest, r: 'release', args: "--no-manual"}
-        - { os: macOS-latest, r: 'release'}
-        - { os: macOS-latest, r: 'devel'}
+        - { os: macOS-latest, r: 'release', args: "--no-manual"}
+        - { os: macOS-latest, r: 'devel', args: "--no-manual"}
         - { os: macOS-latest, r: 'oldrel', args: "--no-manual"}
         - { os: ubuntu-16.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
 
@@ -32,6 +32,8 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v1
 
       - uses: r-lib/actions/setup-tinytex@v1
+        env: 
+          TINYTEX_VERSION: 2021.02
         if: contains(matrix.config.args, 'no-manual') == false
 
       - name: Query dependencies
@@ -69,6 +71,11 @@ jobs:
 
       - name: Check
         run: Rscript -e "rcmdcheck::rcmdcheck(args = c('--as-cran', '${{ matrix.config.args }}'), error_on = 'warning', check_dir = 'check')"
+
+      - name: Show testthat output
+        if: always()
+        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
+        shell: bash
 
       - name: Upload check results
         if: failure()
