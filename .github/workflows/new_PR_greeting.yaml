@@ -1,6 +1,5 @@
 name: "New issue or new PR Greeter"
 on: [issues, pull_request]
-
   jobs:
     greeter:
       runs-on: ubuntu-latest
