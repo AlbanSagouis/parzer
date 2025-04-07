@@ -59,19 +59,19 @@ NULL
 #' @export
 #' @rdname dms
 pz_degree <- function(lon = NULL, lat = NULL) {
-  dms_helper(lon, lat)$deg
+  dms_helper(lon, lat)[, 1L]
 }
 
 #' @export
 #' @rdname dms
 pz_minute <- function(lon = NULL, lat = NULL) {
-  dms_helper(lon, lat)$min
+  dms_helper(lon, lat)[, 2L]
 }
 
 #' @export
 #' @rdname dms
 pz_second <- function(lon = NULL, lat = NULL) {
-  dms_helper(lon, lat)$sec
+  dms_helper(lon, lat)[, 3L]
 }
 
 # adders

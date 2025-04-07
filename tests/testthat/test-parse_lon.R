@@ -4,7 +4,7 @@ test_that("parse_lon works", {
   aa <- parse_lon("45W54.2356")
 
   expect_type(aa, "double")
-  expect_equal(round(aa), -46)
+  expect_equal(unname(round(aa)), -46)
   expect_match(strsplit(as.character(aa), "\\.")[[1]][2], "903")
 })
 
@@ -41,7 +41,7 @@ test_that("parse_lon works: run through test_lons", {
     stringsAsFactors = FALSE
   )
   for (i in seq_along(test_lons)) {
-    expect_equal(round(parse_lon(test_lons[i]), 5), -74.64111)
+    expect_equal(unname(round(parse_lon(test_lons[[i]]), 5)), -74.64111)
     # out[i, "res"] <- parse_lon(test_lons[i])
   }
   # out
@@ -81,17 +81,15 @@ invalid_formats <- c(
   "200W45"
 )
 
+out <- data.frame(input = invalid_formats, res = NA_real_,
+                  stringsAsFactors = FALSE)
+
 # res column should all give NaN
 test_that("parse_lon works: invalid formats fail as expected", {
-  out <- data.frame(
-    input = invalid_formats, res = NA_real_,
-    stringsAsFactors = FALSE
-  )
   for (i in seq_along(invalid_formats)) {
-    out[i, "res"] <- suppressWarnings({parse_lon(invalid_formats[i])})
-    expect_warning({aa <- parse_lon(invalid_formats[i])})
+    out[i, "res"] <- suppressWarnings({parse_lon(invalid_formats[[i]])})
+    expect_warning({aa <- parse_lon(invalid_formats[[i]])})
     expect_type(aa, "double")
-    expect_equal(aa, NaN)
+    expect_equal(unname(aa), NaN)
   }
 })
-

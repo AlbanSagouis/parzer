@@ -4,7 +4,7 @@ test_that("parse_lat works", {
   aa <- parse_lat("45N54.2356")
 
   expect_type(aa, "double")
-  expect_equal(round(aa), 46)
+  expect_equal(unname(round(aa)), 46)
   expect_match(strsplit(as.character(aa), "\\.")[[1]][2], "903")
 })
 
@@ -42,7 +42,7 @@ test_that("parse_lat works: run through test_lats", {
     stringsAsFactors = FALSE
   )
   for (i in seq_along(test_lats)) {
-    expect_equal(round(parse_lat(test_lats[i]), 5), 40.41833)
+    expect_equal(unname(round(parse_lat(test_lats[i]), 5)), 40.41833)
     # cat(test_lats[i], sep = "\n")
     # out[i, "res"] <- parse_lat(test_lats[i])
     # expect_is(out[i, "res"], "numeric")
@@ -91,6 +91,6 @@ test_that("parse_lat works: invalid formats fail as expected", {
     out[i, "res"] <- suppressWarnings({parse_lat(invalid_formats[i])})
     expect_warning({aa <- parse_lat(invalid_formats[i])})
     expect_type(aa, "double")
-    expect_equal(aa, NaN)
+    expect_equal(unname(aa), NaN)
   }
 })

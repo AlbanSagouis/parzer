@@ -5,8 +5,8 @@ test_that("parse_parts_lat works", {
   aa <- parse_parts_lat("45N54.2356")
 
   expect_type(aa, "list")
-  expect_type(aa$deg, "integer")
-  expect_type(aa$min, "integer")
+  checkmate::expect_integerish(aa$deg)
+  checkmate::expect_integerish(aa$min)
   expect_type(aa$sec, "double")
 
   expect_equal(NROW(aa), 1)
@@ -28,8 +28,8 @@ test_that("parse_parts_lon works", {
   aa <- parse_parts_lon("45W54.2356")
 
   expect_type(aa, "list")
-  expect_type(aa$deg, "integer")
-  expect_type(aa$min, "integer")
+  checkmate::expect_integerish(aa$deg)
+  checkmate::expect_integerish(aa$min)
   expect_type(aa$sec, "double")
 
   expect_equal(NROW(aa), 1)

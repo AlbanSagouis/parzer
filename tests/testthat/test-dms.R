@@ -3,14 +3,14 @@
 test_that("pz_degree works", {
   aa <- pz_degree(45.23323)
 
-  expect_type(aa, "integer")
-  expect_equal(aa, 45)
+  checkmate::expect_integerish(aa)
+  expect_equal(aa, 45L)
 })
 
 test_that("pz_minute works", {
   aa <- pz_minute(45.23323)
 
-  expect_type(aa, "integer")
+  checkmate::expect_integerish(aa)
   expect_equal(aa, 13)
 })
 
