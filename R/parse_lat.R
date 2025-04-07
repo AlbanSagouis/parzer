@@ -54,8 +54,10 @@
 #' parse_lat("40d 25’ 6\" N")
 #' }
 parse_lat <- function(lat, format = NULL) {
-  assert(lat, c("numeric", "integer", "character"))
-  assert(format, "character")
-  lat <- scrub(lat)
-  if (is.null(format)) pz_parse_lat(lat) else stop_form()
+  assert(x = lat, y = c("numeric", "integer", "character"))
+  assert(x = format, y = "character")
+
+  lat <- scrub(x = lat)
+  result <- if (is.null(format)) convert_lat(str = lat) else stop_form()
+  return(result)
 }

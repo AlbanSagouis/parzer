@@ -57,9 +57,10 @@
 #' parse_lon("40d 25’ 6\" E")
 #' }
 parse_lon <- function(lon, format = NULL) {
-  assert(lon, c("numeric", "integer", "character"))
-  assert(format, "character")
+  assert(x = lon, y = c("numeric", "integer", "character"))
+  assert(x = format, y = "character")
 
-  lon <- scrub(lon)
-  if (is.null(format)) pz_parse_lon(lon) else stop_form()
+  lon <- scrub(x = lon)
+  result <- if (is.null(format)) convert_lon(str = lon) else stop_form()
+  return(result)
 }

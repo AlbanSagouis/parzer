@@ -81,8 +81,8 @@ parse_latlon <- function(x) {
     part1 <- stringi::stri_trim_both(str = parts[1])
     part2 <- stringi::stri_trim_both(str = parts[2])
 
-    part1_dir <- stringi::stri_extract_first_regex(str = part1, pattern = "[NSEWnsew]") |> tolower()
-    part2_dir <- stringi::stri_extract_first_regex(str = part2, pattern = "[NSEWnsew]") |> tolower()
+    part1_dir <- stringi::stri_extract_first_regex(str = part1, pattern = "[NSEWnsew]") |> str_tolower()
+    part2_dir <- stringi::stri_extract_first_regex(str = part2, pattern = "[NSEWnsew]") |> str_tolower()
 
     if (part1_dir %in% c("n", "s")) {
       lat <- convert_lat(str = part1)

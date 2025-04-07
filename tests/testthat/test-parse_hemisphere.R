@@ -1,7 +1,7 @@
 # parse_hemisphere
 
 test_that("parse_hemisphere works", {
-  skip_on_cran()
+  # skip_on_cran()
   # NE
   ne <- parse_hemisphere("74.123E", "45N54.2356")
   # NW

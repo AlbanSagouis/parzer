@@ -3,10 +3,14 @@ dms_helper <- function(lon = NULL, lat = NULL) {
   assert(lon, c("numeric", "integer", "character"))
   assert(lat, c("numeric", "integer", "character"))
   if (!is.null(lon)) {
-    return(pz_parse_parts_lon(scrub(lon)))
+    return({scrub(lon) |>
+             vapply(FUN = convert_lat, numeric(1)) |>
+             split_decimal_degree()})
   }
   if (!is.null(lat)) {
-    return(pz_parse_parts_lat(scrub(lat)))
+    return({scrub(lat) |>
+             vapply(FUN = convert_lat, numeric(1)) |>
+             split_decimal_degree()})
   }
 }
 
@@ -106,14 +110,14 @@ pz_s <- function(x) {
   e1u <- unclass_strip_atts(e1)
   e2u <- unclass_strip_atts(e2)
   e1 <- switch(attr(e1, "type"),
-    deg = e1u,
-    min = e1u / 60,
-    sec = e1u / 3600
+               deg = e1u,
+               min = e1u / 60,
+               sec = e1u / 3600
   )
   e2 <- switch(attr(e2, "type"),
-    deg = e2u,
-    min = e2u / 60,
-    sec = e2u / 3600
+               deg = e2u,
+               min = e2u / 60,
+               sec = e2u / 3600
   )
   structure(e1 + e2, class = "pz", type = "deg")
 }
@@ -123,14 +127,14 @@ pz_s <- function(x) {
   e1u <- unclass_strip_atts(e1)
   e2u <- unclass_strip_atts(e2)
   e1 <- switch(attr(e1, "type"),
-    deg = e1u,
-    min = e1u / 60,
-    sec = e1u / 3600
+               deg = e1u,
+               min = e1u / 60,
+               sec = e1u / 3600
   )
   e2 <- switch(attr(e2, "type"),
-    deg = e2u,
-    min = e2u / 60,
-    sec = e2u / 3600
+               deg = e2u,
+               min = e2u / 60,
+               sec = e2u / 3600
   )
   structure(e1 - e2, class = "pz", type = "deg")
 }

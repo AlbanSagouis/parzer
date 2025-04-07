@@ -2,7 +2,7 @@
 
 test_that("parse_parts_lat works", {
   skip_on_cran()
-  aa <- parse_parts_lat("45N54.2356")
+  aa <- parse_parts_lat(str = "45N54.2356")
 
   expect_type(aa, "list")
   checkmate::expect_integerish(aa$deg)
@@ -25,7 +25,7 @@ test_that("parse_parts_lat - fails well", {
 
 test_that("parse_parts_lon works", {
   skip_on_cran()
-  aa <- parse_parts_lon("45W54.2356")
+  aa <- parse_parts_lon(str = "45W54.2356")
 
   expect_type(aa, "list")
   checkmate::expect_integerish(aa$deg)

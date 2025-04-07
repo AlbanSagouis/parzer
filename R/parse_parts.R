@@ -37,13 +37,37 @@
 #' @export
 #' @rdname parse_parts
 parse_parts_lon <- function(str) {
-  assert(str, "character")
-  pz_parse_parts_lon(scrub(str))
+  assert(x = str, y = c("character", "numeric"))
+  str <- as.character(x = str)
+  result <- scrub(str) |>
+    vapply(FUN = convert_lon, numeric(1)) |>
+    split_decimal_degree()
+  return(result)
 }
 
 #' @export
 #' @rdname parse_parts
 parse_parts_lat <- function(str) {
-  assert(str, "character")
-  pz_parse_parts_lat(scrub(str))
+  assert(x = str, y = c("character", "numeric"))
+  str <- as.character(x = str)
+  result <- scrub(str) |>
+    vapply(FUN = convert_lat, numeric(1)) |>
+    split_decimal_degree()
+  return(result)
+}
+
+#' Split decimal degree into degrees, minutes, and seconds
+#'
+#' @param x A numeric vector of decimal degrees
+#' @return A data frame with columns for degrees, minutes, and seconds
+split_decimal_degree <- function(x) {
+  abs_x <- abs(x)
+  sign_x <- ifelse(x < 0, -1L, 1L)
+  deg <- as.integer(floor(abs_x) * sign_x)
+  frac_minutes <- (abs_x - floor(abs_x)) * 60
+  min <- floor(frac_minutes) |> as.integer()
+  sec <- (frac_minutes - min) * 60
+
+  out <- data.frame(deg = deg, min = min, sec = sec)
+  return(out)
 }

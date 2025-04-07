@@ -6,7 +6,8 @@
 This function parses geographic coordinate strings in various formats,
 including compact cardinal forms (e.g., "N4.9196E101.347") and
 different delimiters such as commas, spaces, semicolons, or dots.
-It supports both "lat first" and "lon first" conventions.}
+It supports both "lat first" and "lon first" conventions if the cardinal
+direction is provided.}
 \usage{
 parse_latlon(x)
 }
@@ -21,7 +22,8 @@ Parse a character vector of latitude and longitude strings
 This function parses geographic coordinate strings in various formats,
 including compact cardinal forms (e.g., "N4.9196E101.347") and
 different delimiters such as commas, spaces, semicolons, or dots.
-It supports both "lat first" and "lon first" conventions.
+It supports both "lat first" and "lon first" conventions if the cardinal
+direction is provided.
 }
 \examples{
 parse_latlon("N 04.1683, E 101.5823")
